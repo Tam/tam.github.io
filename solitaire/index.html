@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Solitaire</title>
+	<style>
+		* { margin: 0; padding: 0; }
+
+		:root {
+			--container-width: 1140px;
+
+			--font-max: 18;
+			--font-max-px: 18px;
+		}
+
+		body {
+			padding: 30px;
+
+			color: #e4ffea;
+			font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+
+			background-color: #111;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		.container {
+			position: relative;
+			width: 100%;
+			max-width: var(--container-width);
+			margin: auto;
+
+			perspective: 100vw;
+		}
+
+		/* Typography
+		 **********************************************************************/
+
+		* {
+			font-size: calc(10px + (var(--font-max) - 10) * (100vw - 400px) / (1140 - 400))
+		}
+
+		@media (min-width: 1140px) {
+			* {
+				font-size: var(--font-max-px);
+			}
+		}
+
+		/* Cards
+		 **********************************************************************/
+
+		.card {
+			position: absolute;
+			width: calc((100% / 7) - 1.5%);
+			padding-top: 17%;
+
+			color: #282828;
+
+			transform-style: preserve-3d;
+			transition: transform 0.5s ease;
+		}
+
+		.flip {
+			transform: rotateY(180deg);
+		}
+
+		.face,
+		.back {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+			border-radius: 5px;
+			backface-visibility: hidden;
+		}
+
+		.face {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			background-color: #fff;
+		}
+
+		.back {
+			position: absolute;
+			background-color: #fff;
+			transform: rotateY(180deg);
+		}
+		.back:before {
+			content: '';
+			position: absolute;
+			top: 3%;
+			right: 4.4%;
+			bottom: 3%;
+			left: 4%;
+
+			background-color: #282828;
+			border-radius: 3px;
+		}
+
+		.red {
+			color: mediumvioletred;
+		}
+
+		.number {
+			position: absolute;
+			top: 4%;
+			left: 5%;
+
+			width: 1.4ch;
+
+			--font-max: 25;
+			--font-max-px: 25px;
+			font-weight: bold;
+			text-align: center;
+			line-height: 0.9em;
+		}
+		.number:nth-child(2) {
+			top: auto;
+			left: auto;
+			bottom: 4%;
+			right: 5%;
+
+			transform: rotate(180deg);
+		}
+
+		/* Cards: Types
+		 **********************************************************************/
+
+		.ace .pip {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+
+			--font-max: 80;
+			--font-max-px: 80px;
+
+			transform: translate3d(-50%, -50%, 0);
+		}
+	</style>
+</head>
+<body>
+<div class="container" id="board"></div>
+
+<template id="card">
+	<div class="card">
+		<div class="face">
+			<div class="number">X <div class="suit"></div></div>
+			<div class="number">X <div class="suit"></div></div>
+		</div>
+		<div class="back"></div>
+	</div>
+</template>
+
+<template id="ace">
+	<div class="pip suit"></div>
+</template>
+
+<script>
+	const tmpl = id => document.getElementById(id).content.firstElementChild
+		, impt = el => document.importNode(el, true);
+
+	const board = document.getElementById('board')
+		, suits = ['♣', '♠', '♥', '♦'];
+
+	const card = tmpl('card')
+		, ace = tmpl('ace');
+
+	const cards = [];
+
+	let i = 0;
+	while (i++ < 4) {
+		const c = impt(card);
+		c.style.left = `calc(((100% / 7) + (1.5% / 6)) * ${i - 1})`;
+
+		if (i > 2)
+			c.classList.add('red');
+
+		const face = impt(ace);
+		c.classList.add('ace');
+		c.querySelector('.face').appendChild(face);
+
+		const n = c.getElementsByClassName('number');
+		for (let x = 0, l = n.length; x < l; ++x)
+			n[x].firstChild.textContent = 'A';
+
+		const s = c.getElementsByClassName('suit');
+		for (let x = 0, l = s.length; x < l; ++x)
+			s[x].textContent = suits[i - 1];
+
+		cards.push(c);
+		board.appendChild(c);
+	}
+
+	document.addEventListener('keypress', e => {
+		if (e.key !== ' ')
+			return;
+
+		cards.forEach((card, i) => {
+			setTimeout(() => {
+				card.classList.toggle('flip');
+			}, 100 * i)
+		});
+	});
+</script>
+</body>
+</html>
