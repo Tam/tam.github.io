@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>♣ ♠ Solitaire ♥ ♦</title>
 	<style>
-		* { margin: 0; padding: 0; }
+		* { margin: 0; padding: 0; box-sizing: border-box }
 
 		:root {
 			--container-width: 1140px;
@@ -15,8 +15,13 @@
 			--font-max-px: 18px;
 		}
 
+		html,
 		body {
-			padding: 30px;
+			height: 100%;
+		}
+
+		body {
+			padding: 50px 30px;
 
 			color: #e4ffea;
 			font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
@@ -31,10 +36,12 @@
 		.container {
 			position: relative;
 			width: 100%;
+			height: 100%;
 			max-width: var(--container-width);
 			margin: auto;
 
-			perspective: 100vw;
+			perspective: 2000px;
+			perspective-origin: center;
 		}
 
 		/* Typography
@@ -60,12 +67,11 @@
 
 			color: #282828;
 
-			transform-style: preserve-3d;
-			transition: transform 0.5s ease;
-		}
+			border: 1px solid #282828;
+			border-radius: 5px;
 
-		.flip {
-			transform: rotateY(180deg);
+			transform-style: preserve-3d;
+			transition: transform 0.5s ease, top 0.5s ease, left 0.5s ease;
 		}
 
 		.face,
@@ -163,50 +169,191 @@
 	<div class="pip suit"></div>
 </template>
 
+<template id="one">
+	<p>one</p>
+</template>
+
+<template id="two">
+	<p>two</p>
+</template>
+
+<template id="three">
+	<p>three</p>
+</template>
+
+<template id="four">
+	<p>four</p>
+</template>
+
+<template id="five">
+	<p>five</p>
+</template>
+
+<template id="six">
+	<p>six</p>
+</template>
+
+<template id="seven">
+	<p>seven</p>
+</template>
+
+<template id="eight">
+	<p>eight</p>
+</template>
+
+<template id="nine">
+	<p>nine</p>
+</template>
+
+<template id="jack">
+	<p>jack</p>
+</template>
+
+<template id="queen">
+	<p>queen</p>
+</template>
+
+<template id="king">
+	<p>king</p>
+</template>
+
 <script>
-	const tmpl = id => document.getElementById(id).content.firstElementChild
-		, impt = el => document.importNode(el, true);
+	// Helpers
+	// =========================================================================
 
-	const board = document.getElementById('board')
-		, suits = ['♣', '♠', '♥', '♦'];
+	const tmpl = id => document.getElementById(id).content.firstElementChild;
+	const impt = id => {
+		if (!templates.hasOwnProperty(id))
+			templates[id] = document.importNode(tmpl(id), true);
 
-	const card = tmpl('card')
-		, ace = tmpl('ace');
+		return templates[id].cloneNode(true);
+	};
 
-	const cards = [];
+	const wordToNumber = number => {
+		switch (number) {
+			case 'ace':   return 'A';
+			case 'one':   return '1';
+			case 'two':   return '2';
+			case 'three': return '3';
+			case 'four':  return '4';
+			case 'five':  return '5';
+			case 'six':   return '6';
+			case 'seven': return '7';
+			case 'eight': return '8';
+			case 'nine':  return '9';
+			case 'jack':  return 'J';
+			case 'queen': return 'Q';
+			case 'king':  return 'K';
+		}
+	};
 
-	let i = 0;
-	while (i++ < 4) {
-		const c = impt(card);
-		c.style.left = `calc(((100% / 7) + (1.5% / 6)) * ${i - 1})`;
+	const trnslt = v => !v ? 0 : isNaN(v) ? v : v + 'px'
+		, rtte = v => !v ? '0deg' : isNaN(v) ? v : v + 'deg';
 
-		if (i > 2)
+	const updateCardTransform = card => {
+		card.style.transform = `
+			translate3d(
+				${trnslt(card.translate.x)},
+				${trnslt(card.translate.y)},
+				${trnslt(card.translate.z)}
+			)
+			rotateX(${rtte(card.rotate.x)})
+			rotateY(${rtte(card.rotate.y)})
+			rotateZ(${rtte(card.rotate.z)})
+		`.replace(/\r\n\s/g, '');
+	};
+
+	const makeCard = (suit, face, colour) => {
+		const c = impt('card')
+			, f = impt(face);
+
+		if (colour === 'red')
 			c.classList.add('red');
 
-		const face = impt(ace);
-		c.classList.add('ace');
-		c.querySelector('.face').appendChild(face);
+		c.classList.add(face);
+		c.getElementsByClassName('face')[0].appendChild(f);
 
 		const n = c.getElementsByClassName('number');
 		for (let x = 0, l = n.length; x < l; ++x)
-			n[x].firstChild.textContent = 'A';
+			n[x].firstChild.textContent = wordToNumber(face);
 
 		const s = c.getElementsByClassName('suit');
 		for (let x = 0, l = s.length; x < l; ++x)
-			s[x].textContent = suits[i - 1];
+			s[x].textContent = suit;
 
-		cards.push(c);
-		board.appendChild(c);
-	}
+		c.translate = {
+			_x: null,
+			_y: null,
+			_z: null,
 
-	document.addEventListener('keypress', e => {
-		if (e.key !== ' ')
-			return;
+			set x (v) { this._x = v; updateCardTransform(c) },
+			set y (v) { this._y = v; updateCardTransform(c) },
+			set z (v) { this._z = v; updateCardTransform(c) },
 
-		cards.forEach((card, i) => {
+			get x () { return this._x },
+			get y () { return this._y },
+			get z () { return this._z },
+		};
+
+		c.rotate = {
+			_x: null,
+			_y: 180,
+			_z: null,
+
+			set x (v) { this._x = v; updateCardTransform(c) },
+			set y (v) { this._y = v; updateCardTransform(c) },
+			set z (v) { this._z = v; updateCardTransform(c) },
+
+			get x () { return this._x },
+			get y () { return this._y },
+			get z () { return this._z },
+		};
+
+		c.flip = () => {
+			c.rotate.y = c.rotate.y !== 360 ? 360 : 180
+		};
+
+		c.column = col => {
+			c.translate.x = `calc((100% * ${col}) + ((700% * (1 / 7)) / 7) * ${col})`;
+		};
+
+		c.row = row => {
+			c.translate.y = `calc(30% * ${row})`;
+		};
+
+		deck.push(c);
+		return c;
+	};
+
+	// Variables
+	// =========================================================================
+
+	const board = document.getElementById('board')
+		, suits = ['♣', '♠', '♥', '♦']
+		, faces = [
+			'ace', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
+			'eight', 'nine', 'jack', 'queen', 'king'
+		];
+
+	const templates = {}
+		, deck = [];
+
+	suits.forEach((suit, i) => {
+		faces.forEach((face, x) => {
+			const c = makeCard(suit, face, i > 2 ? 'red' : 'black');
+			c.translate.z = (x + i * faces.length);
+			board.appendChild(c);
+		});
+	});
+
+	document.addEventListener('click', () => {
+		deck.forEach((card, i) => {
 			setTimeout(() => {
-				card.classList.toggle('flip');
-			}, 100 * i)
+				card.flip();
+				card.translate.z = 0;
+				card.column(i % 7);
+				card.row(Math.floor(i / 7));
+			}, 50 * i);
 		});
 	});
 </script>
