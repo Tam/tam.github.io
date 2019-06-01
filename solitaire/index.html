@@ -67,11 +67,12 @@
 
 			color: #282828;
 
+			background-color: #fff;
 			border: 1px solid #282828;
 			border-radius: 5px;
 
 			transform-style: preserve-3d;
-			transition: transform 0.5s ease, top 0.5s ease, left 0.5s ease;
+			transition: transform 1s ease;
 		}
 
 		.face,
@@ -218,6 +219,7 @@
 </template>
 
 <script>
+
 	// Helpers
 	// =========================================================================
 
@@ -229,7 +231,7 @@
 		return templates[id].cloneNode(true);
 	};
 
-	const wordToNumber = number => {
+	function wordToNumber (number) {
 		switch (number) {
 			case 'ace':   return 'A';
 			case 'one':   return '1';
@@ -245,7 +247,20 @@
 			case 'queen': return 'Q';
 			case 'king':  return 'K';
 		}
-	};
+	}
+
+	function shuffle (array) {
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]];
+		}
+	}
+
+	function sleep (dur) {
+		return new Promise(resolve => {
+			setTimeout(resolve, dur);
+		});
+	}
 
 	const trnslt = v => !v ? 0 : isNaN(v) ? v : v + 'px'
 		, rtte = v => !v ? '0deg' : isNaN(v) ? v : v + 'deg';
@@ -309,8 +324,12 @@
 			get z () { return this._z },
 		};
 
-		c.flip = () => {
-			c.rotate.y = c.rotate.y !== 360 ? 360 : 180
+		c.flipUp = () => {
+			c.rotate.y = 360;
+		};
+
+		c.flipDown = () => {
+			c.rotate.y = 180;
 		};
 
 		c.column = col => {
@@ -318,7 +337,7 @@
 		};
 
 		c.row = row => {
-			c.translate.y = `calc(30% * ${row})`;
+			c.translate.y = row === -1 ? 0 : `calc(130% + (30% * ${row}))`;
 		};
 
 		deck.push(c);
@@ -332,30 +351,78 @@
 		, suits = ['♣', '♠', '♥', '♦']
 		, faces = [
 			'ace', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
-			'eight', 'nine', 'jack', 'queen', 'king'
+			'eight', 'nine', 'jack', 'queen', 'king',
 		];
 
 	const templates = {}
-		, deck = [];
+		, deck = []
+		, columns = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
 
 	suits.forEach((suit, i) => {
 		faces.forEach((face, x) => {
-			const c = makeCard(suit, face, i > 2 ? 'red' : 'black');
+			const c = makeCard(suit, face, i > 1 ? 'red' : 'black');
 			c.translate.z = (x + i * faces.length);
 			board.appendChild(c);
 		});
 	});
 
-	document.addEventListener('click', () => {
-		deck.forEach((card, i) => {
-			setTimeout(() => {
-				card.flip();
-				card.translate.z = 0;
-				card.column(i % 7);
-				card.row(Math.floor(i / 7));
-			}, 50 * i);
+	const deckLength = deck.length;
+
+	// Actions
+	// =========================================================================
+
+	async function deal () {
+		Object.keys(columns).forEach(i => {
+			columns[i] = [];
 		});
-	});
+
+		deck.forEach(card => {
+			card.flipDown();
+			card.column(0);
+			card.row(-1);
+		});
+
+		shuffle(deck);
+
+		deck.forEach((card, i) => {
+			card.translate.z = i;
+			card.style.zIndex = i;
+		});
+
+		let cardI = 0,
+			colI = 7,
+			rowI = 0;
+
+		while (colI--) {
+			let i = 0;
+			while (i <= colI) {
+				const card = deck[deckLength - (cardI + 1)];
+				card.column(6 - i);
+				card.row(rowI);
+				card.translate.z = rowI * 0.5;
+				card.style.zIndex = deckLength + rowI;
+				columns[i].push(card);
+				cardI++;
+				i++;
+				await sleep(50);
+			}
+
+			rowI++;
+		}
+
+		await sleep(500);
+
+		Object.values(columns).reverse().forEach((cards, i) => {
+			setTimeout(() => {
+				cards.slice(-1)[0].flipUp();
+			}, 100 * i);
+		});
+	}
+
+	setTimeout(() => {
+		deal();
+	}, 1000);
+
 </script>
 </body>
 </html>
