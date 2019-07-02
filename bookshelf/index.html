@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>📚 Bookshelf</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body {
+			color: #fff;
+			font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+
+			background-color: #1b1b1b;
+		}
+		.container {
+			width: 100%;
+			max-width: 800px;
+			min-height: 100vh;
+			margin: auto;
+			padding: 60px;
+
+			background-color: #2d2d2d;
+		}
+		h1 {
+			margin-bottom: 60px;
+			padding-bottom: 60px;
+			font-size: 40px;
+			font-weight: 100;
+			letter-spacing: 0.025em;
+			line-height: 0.9em;
+
+			border-bottom: 1px solid rgba(255,255,255,0.1);
+		}
+		ul {
+			list-style: none;
+		}
+		li {
+			display: flex;
+			align-items: flex-start;
+		}
+		li:not(:last-child) {
+			margin-bottom: 40px;
+		}
+		img {
+			width: 100%;
+			max-width: 150px;
+			height: auto;
+			vertical-align: middle;
+			margin-right: 30px;
+			box-shadow: 10px 10px 30px rgba(0,0,0,0.25);
+		}
+		h4 {
+			font-size: 28px;
+			font-weight: 200;
+			letter-spacing: 0.025em;
+		}
+		h6 {
+			margin-top: 5px;
+			margin-bottom: 20px;
+			font-size: 14px;
+			font-weight: 400;
+			letter-spacing: 0.025em;
+			opacity: 0.3;
+		}
+		p {
+			line-height: 1.5em;
+			opacity: 0.9;
+		}
+		p:not(:last-child) {
+			margin-bottom: 15px;
+		}
+		em {
+			opacity: 0.5;
+		}
+		em:before {
+			content: open-quote;
+		}
+		em:after {
+			content: close-quote;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<h1>Bookshelf</h1>
+	<ul>
+		<li>
+			<img src="imgs/if-at-birth-you-dont-succeed.jpg" alt="If at Birth You Don't Succeed">
+			<div>
+				<h4>If at Birth You Don't Succeed</h4>
+				<h6>Zach Anner</h6>
+
+				<!--<p>[TODO: Blurb / Review]</p>-->
+			</div>
+		</li>
+		<li>
+			<img src="imgs/creativity-inc.jpg" alt="Creativity Inc.">
+			<div>
+				<h4>Creativity Inc.</h4>
+				<h6>Ed Catmull</h6>
+
+				<!--<p>[TODO: Blurb / Review]</p>-->
+			</div>
+		</li>
+	</ul>
+</div>
+</body>
+</html>
