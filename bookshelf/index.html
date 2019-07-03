@@ -17,10 +17,10 @@
 			color: #fff;
 			font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
 
-			background-color: #1b1b1b;
+			background: #1b1b1b url(imgs/bg.jpg) fixed center;
+			background-size: cover;
 		}
-		body:before,
-		body:after {
+		body:before {
 			content: '';
 			z-index: -1;
 			position: fixed;
@@ -30,12 +30,7 @@
 			height: 100vh;
 		}
 		body:before {
-			background: url(imgs/bg.jpg) center fixed;
-			background-size: cover;
-			opacity: 0.75;
-		}
-		body:after {
-			background-image: radial-gradient(ellipse, transparent, rgba(0,0,0,0.75));
+			background-image: radial-gradient(ellipse, rgba(0,0,0,0.25), rgba(0,0,0,0.75));
 		}
 		.container {
 			width: 100%;
