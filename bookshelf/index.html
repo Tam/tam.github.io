@@ -12,10 +12,30 @@
 			box-sizing: border-box;
 		}
 		body {
+			position: relative;
+
 			color: #fff;
 			font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
 
 			background-color: #1b1b1b;
+		}
+		body:before,
+		body:after {
+			content: '';
+			z-index: -1;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+		}
+		body:before {
+			background: url(imgs/bg.jpg) center fixed;
+			background-size: cover;
+			opacity: 0.75;
+		}
+		body:after {
+			background-image: radial-gradient(ellipse, transparent, rgba(0,0,0,0.75));
 		}
 		.container {
 			width: 100%;
@@ -24,16 +44,25 @@
 			margin: auto;
 			padding: 60px;
 
-			background-color: #2d2d2d;
+			/*background-color: #2d2d2d;*/
 		}
 		h1 {
-			margin-bottom: 60px;
-			padding-bottom: 60px;
 			font-size: 40px;
 			font-weight: 100;
 			letter-spacing: 0.025em;
 			line-height: 0.9em;
+		}
+		h2 {
+			margin-top: 15px;
+			font-weight: 100;
+			font-size: 20px;
+			letter-spacing: 0.025em;
+			line-height: 1.5em;
+		}
+		hr {
+			margin: 60px 0;
 
+			border: none;
 			border-bottom: 1px solid rgba(255,255,255,0.1);
 		}
 		ul {
@@ -87,9 +116,11 @@
 			.container {
 				padding: 30px;
 			}
-			h1 {
-				margin-bottom: 30px;
-				padding-bottom: 30px;
+			h2 {
+				font-size: 15px;
+			}
+			hr {
+				margin: 30px 0;
 			}
 			li {
 				display: block;
@@ -116,6 +147,10 @@
 <body>
 <div class="container">
 	<h1>📚 Bookshelf</h1>
+	<h2>Some of the books what I have read.</h2>
+
+	<hr>
+
 	<ul>
 		<li>
 			<img src="imgs/gulag.jpg" alt="Gulag: A History" loading="lazy">
@@ -140,6 +175,24 @@
 			<div>
 				<h4>If at Birth You Don't Succeed</h4>
 				<h6>Zach Anner</h6>
+
+				<!--<p>[TODO: Blurb / Review]</p>-->
+			</div>
+		</li>
+		<li>
+			<img src="imgs/dead-famous.jpg" alt="Dead Famous" loading="lazy">
+			<div>
+				<h4>Dead Famous</h4>
+				<h6>Ben Elton</h6>
+
+				<!--<p>[TODO: Blurb / Review]</p>-->
+			</div>
+		</li>
+		<li>
+			<img src="imgs/this-other-eden.jpg" alt="This Other Eden" loading="lazy">
+			<div>
+				<h4>This Other Eden</h4>
+				<h6>Ben Elton</h6>
 
 				<!--<p>[TODO: Blurb / Review]</p>-->
 			</div>
