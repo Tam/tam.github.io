@@ -119,7 +119,14 @@
 			}
 			li {
 				display: block;
-				overflow: hidden;
+			}
+			li:not(:last-child) {
+				margin-bottom: 15px;
+			}
+			li:after {
+				content: '';
+				display: block;
+				clear: both;
 			}
 			img {
 				float: left;
