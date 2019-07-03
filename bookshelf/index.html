@@ -42,10 +42,17 @@
 			/*background-color: #2d2d2d;*/
 		}
 		h1 {
+			margin-left: -82px;
 			font-size: 40px;
 			font-weight: 100;
 			letter-spacing: 0.025em;
 			line-height: 0.9em;
+		}
+		h1 span {
+			display: inline-block;
+			margin-right: 30px;
+			font-size: 50px;
+			transform: translateY(9px);
 		}
 		h2 {
 			margin-top: 15px;
@@ -124,6 +131,12 @@
 			.container {
 				padding: 30px;
 			}
+			h1 {
+				margin-left: 0;
+			}
+			h1 span {
+				margin-right: 10px;
+			}
 			h2 {
 				font-size: 15px;
 			}
@@ -161,7 +174,7 @@
 </head>
 <body>
 <div class="container">
-	<h1>📚 Bookshelf</h1>
+	<h1><span>📚</span>Bookshelf</h1>
 	<h2>Some of the books what I have read.</h2>
 
 	<hr>
