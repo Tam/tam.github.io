@@ -83,26 +83,60 @@
 		em:after {
 			content: close-quote;
 		}
+		@media (max-width: 800px) {
+			.container {
+				padding: 30px;
+			}
+			h1 {
+				margin-bottom: 30px;
+				padding-bottom: 30px;
+			}
+			li {
+				flex-direction: column;
+			}
+			img {
+				margin-right: 0;
+				margin-bottom: 15px;
+			}
+			h4 {
+				font-size: 20px;
+			}
+			h6 {
+				margin-bottom: 10px;
+			}
+			p {
+				font-size: 14px;
+			}
+		}
 	</style>
 </head>
 <body>
 <div class="container">
-	<h1>Bookshelf</h1>
+	<h1>📚 Bookshelf</h1>
 	<ul>
 		<li>
-			<img src="imgs/if-at-birth-you-dont-succeed.jpg" alt="If at Birth You Don't Succeed">
+			<img src="imgs/gulag.jpg" alt="Gulag: A History" loading="lazy">
 			<div>
-				<h4>If at Birth You Don't Succeed</h4>
-				<h6>Zach Anner</h6>
+				<h4>Gulag: A History</h4>
+				<h6>Anne Applebaum</h6>
 
 				<!--<p>[TODO: Blurb / Review]</p>-->
 			</div>
 		</li>
 		<li>
-			<img src="imgs/creativity-inc.jpg" alt="Creativity Inc.">
+			<img src="imgs/creativity-inc.jpg" alt="Creativity, Inc." loading="lazy">
 			<div>
-				<h4>Creativity Inc.</h4>
+				<h4>Creativity, Inc.</h4>
 				<h6>Ed Catmull</h6>
+
+				<!--<p>[TODO: Blurb / Review]</p>-->
+			</div>
+		</li>
+		<li>
+			<img src="imgs/if-at-birth-you-dont-succeed.jpg" alt="If at Birth You Don't Succeed" loading="lazy">
+			<div>
+				<h4>If at Birth You Don't Succeed</h4>
+				<h6>Zach Anner</h6>
 
 				<!--<p>[TODO: Blurb / Review]</p>-->
 			</div>
