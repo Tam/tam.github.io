@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Clicker</title>
+</head>
+<body>
+
+<h1 id="total">0</h1>
+
+<button id="click">Click</button>
+<button id="slave" disabled data-val="10">Buy Slave (10, +1/s, [x])</button>
+<button id="ship" disabled data-val="100">Buy Slave Ship (100, +10/s, [x])</button>
+
+<script>
+	const total = document.getElementById('total')
+		, click = document.getElementById('click')
+		, slave = document.getElementById('slave')
+		, ship  = document.getElementById('ship');
+
+	const items = {
+		slave: 0,
+		ship: 0,
+	};
+
+	let value = 0;
+
+	const updateValue = val => {
+		value += val;
+		total.textContent = Math.floor(value);
+
+		if (value >= slave.dataset.val) slave.removeAttribute('disabled');
+		else slave.setAttribute('disabled', '');
+
+		if (value >= ship.dataset.val) ship.removeAttribute('disabled');
+		else ship.setAttribute('disabled', '');
+	};
+
+	click.addEventListener('click', () => updateValue(1));
+
+	slave._label = slave.textContent;
+	slave.addEventListener('click', () => {
+		items.slave++;
+		updateValue(-slave.dataset.val);
+		slave.textContent = slave._label.replace('[x]', items.slave);
+	});
+
+	ship._label = ship.textContent;
+	ship.addEventListener('click', () => {
+		items.ship++;
+		updateValue(-ship.dataset.val);
+		ship.textContent = ship._label.replace('[x]', items.ship);
+	});
+
+	setInterval(() => {
+		for (let [key, count] of Object.entries(items)) {
+			let add = 0;
+
+			switch (key) {
+				case 'slave':
+					add = count;
+					break;
+				case 'ship':
+					add = 10 * count;
+					break;
+			}
+
+			updateValue(add / 10);
+		}
+	}, 100);
+</script>
+</body>
+</html>
