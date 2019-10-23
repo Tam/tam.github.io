@@ -44,6 +44,7 @@
 	</style>
 </head>
 <body>
+<div id="b">
 # Kingdom of Rust: Reunion
 
 ## Part 1
@@ -389,10 +390,12 @@ Having finished the first row, he moved on to the second. Then he faltered. He h
 Oscar ran out across the road. His pace slowed. He knew it before he even got close.
 
 As he reached her he fell to his knees.
+</div>
 <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
 <script>
 	const converter = new showdown.Converter({ simpleLineBreaks: true });
-	document.body.innerHTML = converter.makeHtml(document.body.textContent.replace(/\*/g, '***'));
+	const b = document.getElementById('b');
+	b.innerHTML = converter.makeHtml(b.textContent.replace(/\*/g, '***'));
 </script>
 </body>
 </html>
