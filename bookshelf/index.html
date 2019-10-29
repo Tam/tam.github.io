@@ -4,185 +4,87 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>📚 Bookshelf</title>
+	<title>Bookshelf</title>
 	<style>
+		@import url('https://fonts.googleapis.com/css?family=Karla|Martel:900&display=swap');
 		* {
 			margin: 0;
 			padding: 0;
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+			text-rendering: optimizeLegibility !important;
+			-webkit-font-smoothing: antialiased !important;
+			-moz-osx-font-smoothing: grayscale !important;
 			box-sizing: border-box;
 		}
 		body {
-			position: relative;
+			display: flex;
+			align-items: flex-end;
+			min-height: 100vh;
+			padding: 100px;
 
 			color: #fff;
-			font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+			font-family: 'Karla', sans-serif;
+			font-size: 18px;
+			line-height: 1.5em;
 
-			background: #1b1b1b url(imgs/bg.jpg) fixed center;
-			background-size: cover;
+			background-color: rgb(45, 28, 125);
 		}
-		body:before {
-			content: '';
-			z-index: -1;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100vw;
-			height: 100vh;
-		}
-		body:before {
-			background-image: radial-gradient(ellipse, rgba(0,0,0,0.25), rgba(0,0,0,0.9));
-		}
-		.container {
-			width: 100%;
-			max-width: 800px;
-			min-height: 100vh;
-			margin: auto;
-			padding: 60px;
-
-			/*background-color: #2d2d2d;*/
+		h1, h4 {
+			font-family: 'Martel', serif;
+			font-weight: 900;
 		}
 		h1 {
-			margin-left: -68px;
+			margin-bottom: 80px;
 			font-size: 40px;
-			font-weight: 100;
-			letter-spacing: 0.025em;
-			line-height: 0.9em;
 		}
-		h1 span {
-			display: inline-block;
-			margin-right: 15px;
-			font-size: 50px;
-			transform: translateY(9px);
-		}
-		h2 {
-			margin-top: 15px;
-			font-weight: 100;
-			font-size: 20px;
-			letter-spacing: 0.025em;
+		h4 {
+			font-size: 25px;
 			line-height: 1.5em;
 		}
-		hr {
-			margin: 60px 0;
-
-			border: none;
-			border-bottom: 1px solid rgba(255,255,255,0.1);
+		h6 {
+			margin-bottom: 15px;
+			font-size: 18px;
+			font-weight: bold;
 		}
 		ul {
 			list-style: none;
+			max-width: 800px;
 		}
 		li {
 			display: flex;
 			align-items: flex-start;
-		}
-		li:not(:last-child) {
-			margin-bottom: 40px;
+			margin-bottom: 80px;
 		}
 		img {
-			width: 100%;
-			max-width: 150px;
+			width: 150px;
 			height: auto;
-			vertical-align: middle;
 			margin-right: 30px;
-			box-shadow: 10px 10px 30px rgba(0,0,0,0.25);
 		}
-		h4 {
-			font-size: 28px;
-			font-weight: 200;
-			letter-spacing: 0.025em;
-		}
-		h6 {
-			margin-top: 5px;
-			margin-bottom: 20px;
-			font-size: 14px;
-			font-weight: 400;
-			letter-spacing: 0.025em;
-			opacity: 0.4;
-		}
-		p {
-			line-height: 1.5em;
-			opacity: 0.9;
+		li > div {
+			flex-shrink: 9999;
 		}
 		p:not(:last-child) {
 			margin-bottom: 15px;
 		}
-		em {
-			opacity: 0.5;
-		}
-		em:before {
-			content: open-quote;
-		}
-		em:after {
-			content: close-quote;
-		}
-		footer {
-			display: flex;
-			justify-content: space-between;
-			color: rgba(255,255,255,0.25);
-			font-size: 14px;
-			text-align: right;
-		}
-		a {
-			color: inherit;
-		}
-		a:hover {
-			color: #fff;
-			opacity: 0.75;
-		}
 		@media (max-width: 800px) {
-			body:before {
-				background-image: radial-gradient(ellipse, rgba(0,0,0,0.4), rgba(0,0,0,0.75));
-			}
-			.container {
+			body {
 				padding: 30px;
 			}
 			h1 {
-				margin-left: 0;
-			}
-			h1 span {
-				margin-right: 10px;
-				transform: translateY(5px);
-			}
-			h2 {
-				font-size: 15px;
-			}
-			hr {
-				margin: 30px 0;
+				margin: 30px 0 40px;
 			}
 			li {
 				display: block;
 			}
-			li:not(:last-child) {
-				margin-bottom: 15px;
-			}
-			li:after {
-				content: '';
-				display: block;
-				clear: both;
-			}
 			img {
-				float: left;
-				max-width: 70px;
-				margin-right: 15px;
-				margin-bottom: 10px;
-			}
-			h4 {
-				font-size: 20px;
-			}
-			h6 {
-				margin-bottom: 10px;
-			}
-			p {
-				font-size: 14px;
+				margin: 0 0 30px;
 			}
 		}
 	</style>
 </head>
 <body>
 <div class="container">
-	<h1><span>📚</span>Bookshelf</h1>
-	<h2>Some of the books what I have read.</h2>
-
-	<hr>
+	<h1>Bookshelf</h1>
 
 	<ul>
 		<li>
@@ -191,7 +93,8 @@
 				<h4>Gulag: A History</h4>
 				<h6>Anne Applebaum</h6>
 
-				<!--<p>[TODO: Blurb / Review]</p>-->
+				<p>This landmark book uncovers for the first time in detail one of the greatest horrors of the twentieth century: the vast system of Soviet camps that were responsible for the deaths of countless millions.</p>
+				<p>Gulag is the only major history in any language to draw together the mass of memoirs and writings on the Soviet camps that have been published in Russia and the West. Using these, as well as her own original research in NKVD archives and interviews with survivors, Anne Applebaum has written a fully documented history of the camp system: from its origins under the tsars, to its colossal expansion under Stalin's reign of terror, its zenith in the late 1940s and eventual collapse in the era of glasnost. It is a gigantic feat of investigation, synthesis and moral reckoning.</p>
 			</div>
 		</li>
 		<li>
@@ -200,7 +103,9 @@
 				<h4>Creativity, Inc.</h4>
 				<h6>Ed Catmull</h6>
 
-				<!--<p>[TODO: Blurb / Review]</p>-->
+				<p>As a young man, Ed Catmull had a dream: to make the world’s first computer-animated movie. He nurtured that dream first as a Ph.D. student at the University of Utah, where many computer science pioneers got their start, and then forged an early partnership with George Lucas that led, indirectly, to his founding Pixar with Steve Jobs and John Lasseter in 1986. Nine years later and against all odds, Toy Story was released, changing animation forever.</p>
+				<p>Since then, Pixar has dominated the world of animation, producing such beloved films as Monsters, Inc., Finding Nemo, The Incredibles, Up, and WALL-E, which have gone on to set box-office records and garner twenty-seven Academy Awards. The joyousness of the storytelling, the inventive plots, the emotional authenticity: In some ways, Pixar movies are an object lesson in what creativity really is. Now, in this book, Catmull reveals the ideals and techniques, honed over years, that have made Pixar so widely admired―and so profitable.</p>
+				<p>Creativity, Inc. is a book for managers who want to lead their employees to new heights, a manual for anyone who strives for originality, and the first-ever, all-access trip into the nerve center of Pixar Animation Studios―into the story meetings, the postmortems, and the ‘Braintrust’ sessions where art is born. It is, at heart, a book about how to build and sustain a creative culture―but it is also, as Pixar co-founder and president Ed Catmull writes, ‘an expression of the ideas that I believe make the best in us possible.’</p>
 			</div>
 		</li>
 		<li>
@@ -209,7 +114,9 @@
 				<h4>If at Birth You Don't Succeed</h4>
 				<h6>Zach Anner</h6>
 
-				<!--<p>[TODO: Blurb / Review]</p>-->
+				<p>Comedian Zach Anner opens his frank and devilishly funny book, If at Birth You Don't Succeed, with an admission: he botched his own birth. Two months early, underweight and under-prepared for life, he entered the world with cerebral palsy and an uncertain future. So how did this hairless mole-rat of a boy blossom into a viral internet sensation who's hosted two travel shows, impressed Oprah, driven the Mars Rover, and inspired a John Mayer song? (It wasn't "Your Body is a Wonderland.")</p>
+				<p>Zach lives by the mantra: when life gives you wheelchair, make lemonade. Whether recounting a valiant childhood attempt to woo Cindy Crawford, encounters with zealous faith healers, or the time he crapped his pants mere feet from Dr. Phil, Zach shares his fumbles with unflinching honesty and characteristic charm. By his thirtieth birthday, Zach had grown into an adult with a career in entertainment, millions of fans, a loving family, and friends who would literally carry him up mountains.</p>
+				<p>If at Birth You Don't Succeed is a hilariously irreverent and heartfelt memoir about finding your passion and your path even when it's paved with epic misadventure. This is the unlikely but not unlucky story of a man who couldn't safely open a bag of Skittles, but still became a fitness guru with fans around the world. You'll laugh, you'll cry, you'll fall in love with the Olive Garden all over again, and learn why cerebral palsy is, definitively, "the sexiest of the palsies."</p>
 			</div>
 		</li>
 		<li>
@@ -218,7 +125,7 @@
 				<h4>Life, the Universe and Everything</h4>
 				<h6>Douglas Adams</h6>
 
-				<!--<p>[TODO: Blurb / Review]</p>-->
+				<p>In consequence of a number of stunning catastrophes, Arthur Dent is surprised to find himself living in a hideously miserable cave on prehistoric Earth. However, just as he thinks that things cannot get possibly worse, they suddenly do. He discovers that the Galaxy is not only mind-boggingly big and bewildering but also that most of the things that happen in it are staggeringly unfair.</p>
 			</div>
 		</li>
 		<li>
@@ -227,7 +134,9 @@
 				<h4>The Restaurant at the End of the Universe</h4>
 				<h6>Douglas Adams</h6>
 
-				<!--<p>[TODO: Blurb / Review]</p>-->
+				<p>If you've done six impossible things this morning, why not round it off with breakfast at Milliways, the Restaurant at the end of the Universe?</p>
+				<p>Which is exactly what the crew of the Heart of Gold plan to do. There's just the small matter of escaping the Vogons, avoiding being taken to the most totally evil world in the Galaxy and teaching a space ship how to make a proper cup of tea.</p>
+				<p>And did anyone actually make a reservation?</p>
 			</div>
 		</li>
 		<li>
@@ -236,7 +145,10 @@
 				<h4>Dead Famous</h4>
 				<h6>Ben Elton</h6>
 
-				<!--<p>[TODO: Blurb / Review]</p>-->
+				<p>One house. Ten contestants. Thirty cameras. Forty microphones.</p>
+				<p>Yet again the public gorges its voyeuristic appetite as another group of unknown and unremarkable people submit themselves to the brutal exposure of the televised real-life soap opera, House Arrest.</p>
+				<p>Everybody knows the rules: total strangers are forced to live together while the rest of the country watches them do it. Who will crack first? Who will have sex with whom? Who will the public love and who will they hate? All the usual questions. And then, suddenly, there are some new ones.</p>
+				<p>Who is the murderer? How did he or she manage to kill under the constant gaze of the thirty television cameras? Why did they do it? And who will be next?</p>
 			</div>
 		</li>
 		<li>
@@ -245,7 +157,9 @@
 				<h4>The Hitchhiker's Guide to the Galaxy</h4>
 				<h6>Douglas Adams</h6>
 
-				<!--<p>[TODO: Blurb / Review]</p>-->
+				<p>Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.</p>
+				<p>Together this dynamic pair begin a journey through space aided by quotes from The Hitchhiker's Guide ("A towel is about the most massively useful thing an interstellar hitchhiker can have") and a galaxy-full of fellow travelers: Zaphod Beeblebrox--the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian, Zaphod's girlfriend (formally Tricia McMillan), whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; Veet Voojagig, a former graduate student who is obsessed with the disappearance of all the ballpoint pens he bought over the years.</p>
+				<p>Where are these pens? Why are we born? Why do we die? Why do we spend so much time between wearing digital watches? For all the answers stick your thumb to the stars. And don't forget to bring a towel!</p>
 			</div>
 		</li>
 		<li>
@@ -254,17 +168,12 @@
 				<h4>This Other Eden</h4>
 				<h6>Ben Elton</h6>
 
-				<!--<p>[TODO: Blurb / Review]</p>-->
+				<p>Small, well appointed future. Semi detached.</p>
+				<p>If the end of the world is nigh, then surely it’s only sensible to make alternative arrangements. Certainly the Earth has its good points, but what most people need is something smaller and more manageable. Of course there are those who say that’s planetary treason, but who cares what the weirdos and terrorists think? Not Nathan. All he cares is that his movie gets made and that’s there’s somebody left to see it.</p>
+				<p>In marketing terms the end of the world will be very big. Anyone trying to save it should remember that.</p>
 			</div>
 		</li>
 	</ul>
-
-	<hr>
-
-	<footer>
-		<p>Got a suggestion? <a href="mailto:hi@tam.sx">Let me know!</a></p>
-		<p>More from <a href="/">Tam</a></p>
-	</footer>
 </div>
 </body>
 </html>
