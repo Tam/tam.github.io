@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="import" href="components/layout.html">
+	<link rel="import" href="components/header.html">
+	<title>Using Web Components as a Templating Language</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Karla|Martel:900&display=swap');
+		* {
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+			text-rendering: optimizeLegibility !important;
+			-webkit-font-smoothing: antialiased !important;
+			-moz-osx-font-smoothing: grayscale !important;
+			box-sizing: border-box;
+		}
+		body {
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+<x-layout>
+	<x-header
+		title="Using Web Components as a Templating Language"
+		date="2019-10-30"
+	></x-header>
+	<p>If there's one thing I've learnt having used JavaScript frameworks like
+		React and Vue it's that modular components are great.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis quae
+		reprehenderit tempora? Alias deleniti dicta dignissimos doloribus earum,
+		eligendi error esse est fugit maxime minus molestias officiis pariatur
+		qui tempore?</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi,
+		assumenda commodi consequuntur delectus dolores, ex fuga hic iure iusto
+		laborum modi natus perferendis quas qui quidem tempore, veritatis
+		voluptatum.</p>
+</x-layout>
+<script>
+	window.loadComponent = url => {
+		const xhr = new XMLHttpRequest();
+		xhr.responseType = 'document';
+		xhr.open('get', url);
+		xhr.onload = () => {
+			const dom = xhr.response;
+			const template = dom.querySelector('template')
+				, script   = dom.querySelector('script')
+				, style    = dom.querySelector('style');
+
+			const jsFile = new Blob([script.textContent], { type: 'application/javascript' });
+			const jsUrl  = URL.createObjectURL(jsFile);
+
+			import(jsUrl).then(module => {
+				class Component extends module.default {
+					constructor () {
+						super();
+						const shadow = this.attachShadow({ mode: this.shadowMode || 'open' });
+						shadow.appendChild(style.cloneNode(true));
+						shadow.appendChild(document.importNode(template.content, true));
+
+						this.onAttachShadow && this.onAttachShadow();
+					}
+				}
+
+				customElements.define(module.default.tagName(), Component);
+			});
+		};
+		xhr.send();
+	};
+
+	if (!('import' in document.createElement('link'))) {
+		Array.from(document.querySelectorAll('link[rel=import]')).forEach(el => {
+			loadComponent(el.getAttribute('href'));
+		});
+	}
+</script>
+</body>
+</html>

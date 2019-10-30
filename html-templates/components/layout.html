@@ -1,0 +1,51 @@
+<template>
+	<div class="wrap">
+		<slot></slot>
+	</div>
+</template>
+
+<script>
+	export default class extends HTMLElement {
+		static tagName () {
+			return 'x-layout';
+		}
+	}
+</script>
+
+<style>
+	:host {
+		display: block;
+		min-width: 100vw;
+		min-height: 100vh;
+		padding: 100px;
+
+		color: #fff;
+		font-family: 'Karla', sans-serif;
+		font-size: 20px;
+		line-height: 1.5em;
+
+		background-color: #201e1c;
+	}
+	.wrap {
+		max-width: 800px;
+	}
+	::slotted(*) {
+		margin: 0;
+		padding: 0;
+	}
+	::slotted(a) {
+		color: inherit;
+	}
+	::slotted(p) {
+		max-width: 60ch;
+		line-height: 1.7em;
+	}
+	::slotted(p:not(:last-child)) {
+		margin-bottom: 30px;
+	}
+	@media (max-width: 800px) {
+		:host {
+			padding: 30px;
+		}
+	}
+</style>

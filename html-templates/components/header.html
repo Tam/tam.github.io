@@ -1,0 +1,43 @@
+<template>
+	<h1></h1>
+	<time datetime=""></time>
+</template>
+
+<script>
+	export default class extends HTMLElement  {
+		static tagName () {
+			return 'x-header';
+		}
+
+		onAttachShadow () {
+			const h1   = this.shadowRoot.querySelector('h1')
+				, time = this.shadowRoot.querySelector('time');
+
+			const d = new Date(...this.getAttribute('date').split('-'));
+
+			h1.textContent = this.getAttribute('title');
+			time.setAttribute('datetime', this.getAttribute('date'));
+			time.textContent = new Intl.DateTimeFormat(undefined, {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+			}).format(d);
+		}
+	}
+</script>
+
+<style>
+	h1 {
+		margin: 0 0 15px;
+		font-size: 60px;
+		font-family: 'Martel', serif;
+		font-weight: 900;
+		line-height: 1.4em;
+	}
+	time {
+		display: block;
+		margin-bottom: 50px;
+		font-weight: bold;
+		opacity: 0.4;
+	}
+</style>
