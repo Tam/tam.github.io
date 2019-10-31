@@ -6,37 +6,53 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="import" href="components/layout.html">
 	<link rel="import" href="components/header.html">
+	<link rel="import" href="components/a.html">
+	<link rel="import" href="components/product-card.html">
+	<link rel="import" href="components/code.html">
 	<title>Using Web Components as a Templating Language</title>
 	<style>
-		@import url('https://fonts.googleapis.com/css?family=Karla|Martel:900&display=swap');
+		@import url('https://fonts.googleapis.com/css?family=Karla:400,700|Martel:900&display=swap');
 		* {
 			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 			text-rendering: optimizeLegibility !important;
 			-webkit-font-smoothing: antialiased !important;
 			-moz-osx-font-smoothing: grayscale !important;
 			box-sizing: border-box;
+			-webkit-text-size-adjust: 100%;
 		}
 		body {
 			margin: 0;
+			background-color: #201e1c;
 		}
 	</style>
 </head>
 <body>
 <x-layout>
 	<x-header
-		title="Using Web Components as a Templating Language"
+		heading="Using Web Components as a Templating Language"
 		date="2019-10-30"
 	></x-header>
 	<p>If there's one thing I've learnt having used JavaScript frameworks like
-		React and Vue it's that modular components are great.</p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis quae
-		reprehenderit tempora? Alias deleniti dicta dignissimos doloribus earum,
-		eligendi error esse est fugit maxime minus molestias officiis pariatur
-		qui tempore?</p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi,
-		assumenda commodi consequuntur delectus dolores, ex fuga hic iure iusto
-		laborum modi natus perferendis quas qui quidem tempore, veritatis
-		voluptatum.</p>
+		<x-a href="https://reactjs.org/">React</x-a> and
+		<x-a href="https://vuejs.org/">Vue</x-a> it's that modular components
+		are great. Being able to re-use elements that perform a very specific
+		function or are styled in a certain way, and in such a condensed form
+		factor, is the best thing. Let me show you what I mean.</p>
+	<p>Say you have a product card that you use in various places across your
+		site. This card is made up of a collection of elements, with the data in
+		those elements changing depending on the product being displayed.</p>
+	<product-card
+		name="Fujifilm X-T10"
+		price="799"
+		image="camera.png"
+	></product-card>
+	<p>Which is constructed using the following markup (I'm ignoring styling for
+		the sake of brevity):</p>
+	<x-code>&lt;a href="#" class="product-card">
+	&lt;strong>Fujifilm X-T10&lt;/strong>
+	&lt;span>£799.00&lt;/span>
+	&lt;img src="camera.png" title="Fujifilm X-T10" />
+&lt;/a></x-code>
 </x-layout>
 <script>
 	window.loadComponent = url => {
@@ -56,7 +72,7 @@
 				class Component extends module.default {
 					constructor () {
 						super();
-						const shadow = this.attachShadow({ mode: this.shadowMode || 'open' });
+						const shadow = this.attachShadow({ mode: 'open' });
 						shadow.appendChild(style.cloneNode(true));
 						shadow.appendChild(document.importNode(template.content, true));
 

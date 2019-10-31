@@ -15,7 +15,7 @@
 
 			const d = new Date(...this.getAttribute('date').split('-'));
 
-			h1.textContent = this.getAttribute('title');
+			h1.textContent = this.getAttribute('heading');
 			time.setAttribute('datetime', this.getAttribute('date'));
 			time.textContent = new Intl.DateTimeFormat(undefined, {
 				year: 'numeric',
@@ -39,5 +39,10 @@
 		margin-bottom: 50px;
 		font-weight: bold;
 		opacity: 0.4;
+	}
+	@media (max-width: 800px) {
+		h1 {
+			font-size: 30px;
+		}
 	}
 </style>

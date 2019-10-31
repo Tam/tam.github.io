@@ -29,13 +29,6 @@
 	.wrap {
 		max-width: 800px;
 	}
-	::slotted(*) {
-		margin: 0;
-		padding: 0;
-	}
-	::slotted(a) {
-		color: inherit;
-	}
 	::slotted(p) {
 		max-width: 60ch;
 		line-height: 1.7em;
@@ -46,6 +39,7 @@
 	@media (max-width: 800px) {
 		:host {
 			padding: 30px;
+			font-size: 18px;
 		}
 	}
 </style>
