@@ -1,16 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Karla|Martel:900&display=swap');
 
-* {
-	margin: 0;
-	padding: 0;
-	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
-	text-rendering: optimizeLegibility !important;
-	-webkit-font-smoothing: antialiased !important;
-	-moz-osx-font-smoothing: grayscale !important;
-	box-sizing: border-box;
-}
-
-body {
+.body {
 	display: flex;
 	align-items: flex-end;
 	min-height: 100vh;
@@ -22,6 +12,10 @@ body {
 	line-height: 1.5em;
 
 	background-color: #201e1c;
+
+	@media (max-width: 800px) {
+		padding: 30px;
+	}
 }
 
 h1 {
@@ -61,10 +55,4 @@ path {
 	height: 100px;
 	margin: 0 0 33px -10px;
 	border-radius: 50%;
-}
-
-@media (max-width: 800px) {
-	body {
-		padding: 30px;
-	}
 }

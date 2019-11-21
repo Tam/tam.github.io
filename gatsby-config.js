@@ -3,10 +3,43 @@ module.exports = {
 		'gatsby-plugin-react-helmet',
 		'gatsby-plugin-sass',
 		{
+			resolve: 'gatsby-transformer-remark',
+			options: {
+				plugins: [
+					'gatsby-remark-use-frontmatter-path',
+					'gatsby-custom-remark',
+				],
+			},
+		},
+		{
+			resolve: 'gatsby-plugin-node-fields',
+			options: {
+				descriptors: [
+					{
+						predicate: node => node.internal.type === 'MarkdownRemark',
+						fields: [
+							{
+								name: 'template',
+								getter: node => node.frontmatter.template,
+								defaultValue: 'read',
+							}
+						],
+					}
+				],
+			},
+		},
+		{
 			resolve: 'gatsby-source-filesystem',
 			options: {
 				name: 'imgs',
 				path: `${__dirname}/src/imgs`,
+			},
+		},
+		{
+			resolve: 'gatsby-source-filesystem',
+			options: {
+				name: 'content',
+				path: `${__dirname}/content`,
 			},
 		},
 		'gatsby-transformer-sharp',

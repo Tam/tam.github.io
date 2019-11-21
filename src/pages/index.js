@@ -1,6 +1,6 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
-import '../scss/index.scss';
+import css from '../scss/index.module.scss';
 import {graphql} from 'gatsby';
 import Img from 'gatsby-image';
 
@@ -10,14 +10,14 @@ const A = ({ to, children }) => (
 
 export default ({ data }) => (
 	<>
-		<Helmet>
+		<Helmet bodyAttributes={{ class: css.body }}>
 			<title>Tam</title>
 			<base target="_blank" />
 		</Helmet>
 		<Img
 			fixed={data.file.childImageSharp.fixed}
 			alt="Tam"
-			className="img"
+			className={css.img}
 		/>
 		<h1>Tam</h1>
 		<p>
