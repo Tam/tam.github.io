@@ -1,7 +1,7 @@
 ---
 title: "Kingdom of Rust: Reunion"
 path: /kor/reunion
-year: 2019
+date: 2019-10-23
 ---
 
 ## Part 1

@@ -488,9 +488,18 @@ type MarkdownRemarkFields {
 }
 
 type MarkdownRemarkFrontmatter {
+	date(
+		#Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\".
+		difference: String,
+		#Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+		formatString: String,
+		#Returns a string generated with Moment.js' `fromNow` function
+		fromNow: Boolean,
+		#Configures the locale Moment.js will use to format the date.
+		locale: String
+	): Date
 	path: String
 	title: String
-	year: Int
 }
 
 type MarkdownRemarkGroupConnection {
@@ -960,9 +969,9 @@ enum FileFieldsEnum {
 	childMarkdownRemark___excerptAst @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	childMarkdownRemark___fields___template @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	childMarkdownRemark___fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+	childMarkdownRemark___frontmatter___date
 	childMarkdownRemark___frontmatter___path
 	childMarkdownRemark___frontmatter___title
-	childMarkdownRemark___frontmatter___year
 	childMarkdownRemark___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	childMarkdownRemark___headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	childMarkdownRemark___headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1336,9 +1345,9 @@ enum MarkdownRemarkFieldsEnum {
 	excerptAst @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	fields___template @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+	frontmatter___date
 	frontmatter___path
 	frontmatter___title
-	frontmatter___year
 	headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	headings___depth @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	headings___value @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -2091,9 +2100,9 @@ input MarkdownRemarkFilterInput {
 }
 
 input MarkdownRemarkFrontmatterFilterInput {
+	date: DateQueryOperatorInput
 	path: StringQueryOperatorInput
 	title: StringQueryOperatorInput
-	year: IntQueryOperatorInput
 }
 
 input MarkdownRemarkSortInput {
