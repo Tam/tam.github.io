@@ -6,6 +6,7 @@
   "dependencies": {
     "gatsby": "^2.17.11",
     "gatsby-image": "^2.2.33",
+    "gatsby-plugin-catch-links": "^2.9.0",
     "gatsby-plugin-fathom": "^1.1.0",
     "gatsby-plugin-manifest": "^2.2.27",
     "gatsby-plugin-node-fields": "^3.0.0",
@@ -13,6 +14,7 @@
     "gatsby-plugin-react-helmet": "^3.1.14",
     "gatsby-plugin-sass": "^2.1.23",
     "gatsby-plugin-sharp": "^2.3.2",
+    "gatsby-remark-copy-relative-linked-files": "^1.3.0",
     "gatsby-remark-use-frontmatter-path": "^1.0.0",
     "gatsby-source-filesystem": "^2.1.38",
     "gatsby-transformer-remark": "^2.6.37",
@@ -23,7 +25,8 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1",
-    "remark-breaks": "^1.0.3"
+    "remark-breaks": "^1.0.3",
+    "unist-util-visit": "^2.0.3"
   },
   "scripts": {
     "build": "gatsby build",

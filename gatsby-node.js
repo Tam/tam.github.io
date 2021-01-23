@@ -12,6 +12,7 @@ exports.createPages = async ({ actions, graphql }) => {
 					}
 					fields {
 						template
+						path
 					}
 				}
 			}
@@ -23,7 +24,7 @@ exports.createPages = async ({ actions, graphql }) => {
 
 	data.pages.nodes.forEach(({ frontmatter, fields }) => {
 		createPage({
-			path: frontmatter.path,
+			path: fields.path || frontmatter.path,
 			component: path.resolve(`src/templates/${fields.template || 'read'}.js`),
 		});
 	});

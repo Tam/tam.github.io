@@ -8,6 +8,8 @@ module.exports = {
 				plugins: [
 					'gatsby-remark-use-frontmatter-path',
 					'gatsby-custom-remark',
+					'gatsby-custom-remark-links',
+					'gatsby-remark-copy-relative-linked-files',
 				],
 			},
 		},
@@ -20,7 +22,22 @@ module.exports = {
 						fields: [
 							{
 								name: 'template',
-								getter: node => node.frontmatter.template,
+								getter: node => {
+									if (node.fileAbsolutePath.indexOf('zamarin') > -1)
+										return 'zamarin';
+
+									return node.frontmatter.template;
+								},
+								defaultValue: 'read',
+							},
+							{
+								name: 'path',
+								getter: node => {
+									if (node.fileAbsolutePath.indexOf('zamarin') > -1)
+										return '/zamarin' + node.fileAbsolutePath.split('zamarin', 2)[1].replace(/(\/index)?.md$/, '');
+
+									return null;
+								},
 								defaultValue: 'read',
 							}
 						],
@@ -66,5 +83,6 @@ module.exports = {
 				siteId: 'QDWYW',
 			},
 		},
+		'gatsby-plugin-catch-links',
 	],
 };

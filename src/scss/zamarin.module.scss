@@ -1,0 +1,128 @@
+@import "functions";
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&display=swap');
+
+@font-face {
+	font-family: 'Lowdrag';
+	src: url('../fonts/Lowdrag-Regular.woff2') format('woff2'),
+		 url('../fonts/Lowdrag-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+$text-color: #4f4d45;
+$muted-color: #bbb3a3;
+
+.body {
+	padding: size(30);
+
+	color: $text-color;
+	@include responsiveSize(16, 21);
+	font-family: 'Crimson Text', Georgia, "Times New Roman", serif;
+
+	background-color: #e44;
+
+	hr {
+		margin: size(25) 0;
+		height: size(5);
+
+		background-color: $muted-color;
+		border: none;
+		border-radius: 5px;
+	}
+}
+
+.wrap {
+	width: calc(100vw - #{size(60)});
+	height: calc(100vh - #{size(60)});
+	padding: size(30);
+	background-color: #f7f0d9;
+	border-radius: size(40);
+
+	overflow: auto;
+
+	h1 {
+		color: #e44;
+		font-family: 'Lowdrag', sans-serif;
+		line-height: 1.2em;
+	}
+}
+
+.large {
+	margin: size(80) 0 size(40);
+	line-height: 1em;
+
+	font-size: size(35);
+	text-align: center;
+
+	em {
+		display: block;
+
+		font-style: normal;
+		font-size: size(130);
+		line-height: 1em;
+	}
+}
+
+.lists {
+	max-width: size(500);
+	margin: auto;
+}
+
+.contents {
+	margin-top: size(30);
+	list-style: none;
+
+	li {
+		counter-increment: li;
+	}
+
+	a {
+		display: flex;
+		align-items: center;
+		padding: size(30) 0;
+
+		color: $text-color;
+		font-size: size(30);
+		text-transform: uppercase;
+		text-decoration: none;
+
+		border-top: 3px solid change-color($muted-color, $alpha: 0.5);
+
+		&:hover span {
+			text-decoration: underline;
+		}
+
+		&::before {
+			content: counter(li, decimal-leading-zero);
+			display: inline-block;
+			margin-right: size(15);
+			margin-bottom: size(-15);
+
+			color: $muted-color;
+			font-size: size(80);
+			font-weight: bold;
+		}
+	}
+}
+
+.details {
+	list-style: none;
+	text-align: center;
+
+	a {
+		display: block;
+		padding: size(30) 0;
+
+		color: $text-color;
+		font-size: size(21);
+		text-transform: uppercase;
+		text-decoration: none;
+
+		border-top: 3px solid change-color($muted-color, $alpha: 0.5);
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
