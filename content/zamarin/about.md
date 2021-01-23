@@ -4,7 +4,7 @@ title: "About the Author"
 
 Hailing from a small village that skirts the northern edge of the Forest of Tethir and a stones throw from the great city of Murann, Zamarin spent much of his youth exploring in those wild, unspoilt woods.
 
-As he got older, the draw of the Sailors' City became too enticing and so he left the village in search of new adventures (and, let's be fair, it was a small village — the gene pool was getting dangerously close to… well, shall we say… consolidation).
+As he got older, the draw of the Sailors' City became all too enticing and so he left the village in search of new adventures (and, let's be fair, it was a small village — the gene pool was getting dangerously close to… well, shall we say… consolidation).
 
 Murann was an overwhelming smorgasbord of cultures and sensations. Being a coastal trade city, it was both rest stop and home to an innumerable number of races and creeds from all the far flung corners of Toril.
 

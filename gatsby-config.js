@@ -23,8 +23,10 @@ module.exports = {
 							{
 								name: 'template',
 								getter: node => {
+									const isIndex = node.fileAbsolutePath.indexOf('index.md') > -1;
+
 									if (node.fileAbsolutePath.indexOf('zamarin') > -1)
-										return 'zamarin';
+										return isIndex ? 'zamarin-index' : 'zamarin';
 
 									return node.frontmatter.template;
 								},

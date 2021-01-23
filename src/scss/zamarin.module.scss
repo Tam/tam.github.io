@@ -12,6 +12,7 @@
 
 $text-color: #4f4d45;
 $muted-color: #bbb3a3;
+$primary: var(--primary, #e44);
 
 .body {
 	padding: size(30);
@@ -20,36 +21,71 @@ $muted-color: #bbb3a3;
 	@include responsiveSize(16, 21);
 	font-family: 'Crimson Text', Georgia, "Times New Roman", serif;
 
-	background-color: #e44;
+	background-color: $primary;
+	transition: background-color 0.5s ease;
 
 	hr {
-		margin: size(25) 0;
-		height: size(5);
-
-		background-color: $muted-color;
+		margin: size(25) 0 size(20);
 		border: none;
-		border-radius: 5px;
+		text-align: center;
+	}
+
+	hr:after {
+		content: '*';
 	}
 }
 
 .wrap {
 	width: calc(100vw - #{size(60)});
 	height: calc(100vh - #{size(60)});
-	padding: size(30);
+	padding: size(50) size(30);
 	background-color: #f7f0d9;
 	border-radius: size(40);
 
 	overflow: auto;
 
 	h1 {
-		color: #e44;
+		color: $primary;
 		font-family: 'Lowdrag', sans-serif;
 		line-height: 1.2em;
+
+		transition: color 0.5s ease;
+	}
+}
+
+.inner {
+	padding: size(30) 0;
+	max-width: size(600);
+	margin: auto;
+}
+
+.header {
+	margin-bottom: size(30);
+
+	h1 {
+		white-space: pre-wrap;
+		margin-bottom: size(10);
+		font-size: 2em;
+	}
+
+	h2 {
+		color: $muted-color;
+		font-family: 'Lowdrag', sans-serif;
+		font-size: size(18);
+	}
+
+	a {
+		color: $muted-color;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 }
 
 .large {
-	margin: size(80) 0 size(40);
+	margin: size(30) 0 size(40);
 	line-height: 1em;
 
 	font-size: size(35);
@@ -61,6 +97,12 @@ $muted-color: #bbb3a3;
 		font-style: normal;
 		font-size: size(130);
 		line-height: 1em;
+	}
+
+	@media (max-width: 500px) {
+		em {
+			font-size: size(70);
+		}
 	}
 }
 
@@ -124,5 +166,13 @@ $muted-color: #bbb3a3;
 		&:hover {
 			text-decoration: underline;
 		}
+	}
+}
+
+.article {
+	padding-bottom: size(30);
+
+	p:not(:last-child) {
+		margin-bottom: size(15);
 	}
 }

@@ -489,6 +489,7 @@ type MarkdownRemarkFields {
 }
 
 type MarkdownRemarkFrontmatter {
+	color: String
 	date(
 		"Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
 		difference: String,
@@ -499,6 +500,7 @@ type MarkdownRemarkFrontmatter {
 		"Configures the locale Moment.js will use to format the date."
 		locale: String
 	): Date
+	icon: String
 	path: String
 	title: String
 }
@@ -540,7 +542,7 @@ type Query {
 	imageSharp(children: NodeFilterListInput, fixed: ImageSharpFixedFilterInput, fluid: ImageSharpFluidFilterInput, id: StringQueryOperatorInput, internal: InternalFilterInput, original: ImageSharpOriginalFilterInput, parent: NodeFilterInput, resize: ImageSharpResizeFilterInput, resolutions: ImageSharpResolutionsFilterInput, sizes: ImageSharpSizesFilterInput): ImageSharp
 	markdownRemark(children: NodeFilterListInput, excerpt: StringQueryOperatorInput, excerptAst: JSONQueryOperatorInput, fields: MarkdownRemarkFieldsFilterInput, fileAbsolutePath: StringQueryOperatorInput, frontmatter: MarkdownRemarkFrontmatterFilterInput, headings: MarkdownHeadingFilterListInput, html: StringQueryOperatorInput, htmlAst: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, rawMarkdownBody: StringQueryOperatorInput, tableOfContents: StringQueryOperatorInput, timeToRead: IntQueryOperatorInput, wordCount: MarkdownWordCountFilterInput): MarkdownRemark
 	site(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, host: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, pathPrefix: StringQueryOperatorInput, polyfill: BooleanQueryOperatorInput, port: IntQueryOperatorInput): Site
-	sitePage(children: NodeFilterListInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, componentPath: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, internalComponentName: StringQueryOperatorInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, parent: NodeFilterInput, path: StringQueryOperatorInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput): SitePage
+	sitePage(children: NodeFilterListInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, componentPath: StringQueryOperatorInput, context: SitePageContextFilterInput, id: StringQueryOperatorInput, internal: InternalFilterInput, internalComponentName: StringQueryOperatorInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, parent: NodeFilterInput, path: StringQueryOperatorInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput): SitePage
 	sitePlugin(browserAPIs: StringQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, nodeAPIs: StringQueryOperatorInput, packageJson: SitePluginPackageJsonFilterInput, parent: NodeFilterInput, pluginFilepath: StringQueryOperatorInput, pluginOptions: SitePluginPluginOptionsFilterInput, resolve: StringQueryOperatorInput, ssrAPIs: StringQueryOperatorInput, version: StringQueryOperatorInput): SitePlugin
 }
 
@@ -594,6 +596,7 @@ type SitePage implements Node {
 	component: String
 	componentChunkName: String
 	componentPath: String
+	context: SitePageContext
 	id: ID!
 	internal: Internal!
 	internalComponentName: String
@@ -611,6 +614,11 @@ type SitePageConnection {
 	nodes: [SitePage!]!
 	pageInfo: PageInfo!
 	totalCount: Int!
+}
+
+type SitePageContext {
+	parentPath: String
+	pathGlob: String
 }
 
 type SitePageEdge {
@@ -973,7 +981,9 @@ enum FileFieldsEnum {
 	childMarkdownRemark___fields___path @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	childMarkdownRemark___fields___template @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	childMarkdownRemark___fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+	childMarkdownRemark___frontmatter___color
 	childMarkdownRemark___frontmatter___date
+	childMarkdownRemark___frontmatter___icon
 	childMarkdownRemark___frontmatter___path
 	childMarkdownRemark___frontmatter___title
 	childMarkdownRemark___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1350,7 +1360,9 @@ enum MarkdownRemarkFieldsEnum {
 	fields___path @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	fields___template @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
 	fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+	frontmatter___color
 	frontmatter___date
+	frontmatter___icon
 	frontmatter___path
 	frontmatter___title
 	headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1559,6 +1571,8 @@ enum SitePageFieldsEnum {
 	component
 	componentChunkName
 	componentPath
+	context___parentPath
+	context___pathGlob
 	id
 	internalComponentName
 	internal___content
@@ -2110,7 +2124,9 @@ input MarkdownRemarkFilterInput {
 }
 
 input MarkdownRemarkFrontmatterFilterInput {
+	color: StringQueryOperatorInput
 	date: DateQueryOperatorInput
+	icon: StringQueryOperatorInput
 	path: StringQueryOperatorInput
 	title: StringQueryOperatorInput
 }
@@ -2161,11 +2177,17 @@ input SiteFilterInput {
 	port: IntQueryOperatorInput
 }
 
+input SitePageContextFilterInput {
+	parentPath: StringQueryOperatorInput
+	pathGlob: StringQueryOperatorInput
+}
+
 input SitePageFilterInput {
 	children: NodeFilterListInput
 	component: StringQueryOperatorInput
 	componentChunkName: StringQueryOperatorInput
 	componentPath: StringQueryOperatorInput
+	context: SitePageContextFilterInput
 	id: StringQueryOperatorInput
 	internal: InternalFilterInput
 	internalComponentName: StringQueryOperatorInput

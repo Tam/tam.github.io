@@ -53,7 +53,7 @@
 /**
  * Convert the given PX size to REMs
  */
-@function size ($targetSize, $baseSize: 16) {
+@function size ($targetSize, $baseSize: 21) {
 	@return #{decimal-round(strip-unit($targetSize) / $baseSize, 3)}rem;
 }
 

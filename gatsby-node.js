@@ -3,29 +3,39 @@ const path = require('path');
 exports.createPages = async ({ actions, graphql }) => {
 	const { createPage } = actions;
 	// language=GraphQL
-	const { data, error } = await graphql(`
-		{
-			pages: allMarkdownRemark {
-				nodes {
-					frontmatter {
-						path
-					}
-					fields {
-						template
-						path
-					}
+	const { data, error } = await graphql(`{
+		pages: allMarkdownRemark (filter: {
+			frontmatter: {
+				path: {
+					nin: ["/_"]
+				}
+			}
+		}) {
+			nodes {
+				frontmatter {
+					path
+				}
+				fields {
+					template
+					path
 				}
 			}
 		}
-	`);
+	}`);
 
 	if (error)
 		console.error(error);
 
 	data.pages.nodes.forEach(({ frontmatter, fields }) => {
+		const pth = fields.path || frontmatter.path;
+
 		createPage({
-			path: fields.path || frontmatter.path,
+			path: pth,
 			component: path.resolve(`src/templates/${fields.template || 'read'}.js`),
+			context: {
+				pathGlob: '**/*' + pth.replace(/^\//g, '') + '**/*',
+				parentPath: pth.slice(0, pth.replace(/\/$/, '').lastIndexOf('/')),
+			},
 		});
 	});
 };

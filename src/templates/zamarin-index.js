@@ -4,27 +4,22 @@ import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
 import favicon from '../helpers/favicon';
 
-export default ({ data: { content: { html, frontmatter }, parent }, location }) => {
+export default ({ data: { content: { frontmatter, html }, pages }, location, pageContext }) => {
 	const { pathname: url } = location;
 	const back = url.slice(0, url.replace(/\/$/, '').lastIndexOf('/'));
-
-	const color = parent ? parent.frontmatter.color : frontmatter.color;
 
 	return (
 		<>
 			<Helmet htmlAttributes={{
 				class: css.body,
-				style: color ? `--primary:${color}` : null,
+				style: frontmatter.color ? `--primary:${frontmatter.color}` : null,
 			}}>
-				<title>{frontmatter.title} - {parent ? parent.frontmatter.title : ''} - The Fantastic Adventures of Zamarin</title>
-				{favicon(parent ? parent.frontmatter.icon : frontmatter.icon)}
+				<title>{frontmatter.title} - The Fantastic Adventures of Zamarin</title>
+				{favicon(frontmatter.icon)}
 			</Helmet>
 			<div className={css.wrap}>
 				<div className={css.inner}>
 					<header className={css.header}>
-						{parent && (
-							<h2>{parent.frontmatter.title}</h2>
-						)}
 						<h1>{frontmatter.title}</h1>
 						<a href={back}>&larr; Back</a>
 					</header>
@@ -32,6 +27,15 @@ export default ({ data: { content: { html, frontmatter }, parent }, location }) 
 						className={css.article}
 						dangerouslySetInnerHTML={{__html:html}}
 					/>
+					<ul className={css.details}>
+						{pages.nodes.map(page => (
+							<li key={page.fields.path}>
+								<a href={page.fields.path}>
+									<span>{page.frontmatter.title}</span>
+								</a>
+							</li>
+						))}
+					</ul>
 				</div>
 			</div>
 		</>
@@ -41,7 +45,7 @@ export default ({ data: { content: { html, frontmatter }, parent }, location }) 
 export const pageQuery = graphql`
 	query (
 		$path: String!
-		$parentPath: String
+		$pathGlob: String
 	) {
 		content: markdownRemark (fields: { path: { eq: $path } }) {
 			html
@@ -52,11 +56,20 @@ export const pageQuery = graphql`
 				icon
 			}
 		}
-		parent: markdownRemark (fields: { path: { eq: $parentPath } }) {
-			frontmatter {
-				title
-				color
-				icon
+		pages: allMarkdownRemark (filter: {
+			fields: {
+				path: {
+					glob: $pathGlob
+				}
+			}
+		}) {
+			nodes {
+				frontmatter {
+					title
+				}
+				fields {
+					path
+				}
 			}
 		}
 	}
