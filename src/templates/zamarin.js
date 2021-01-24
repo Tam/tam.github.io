@@ -4,8 +4,11 @@ import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
 import favicon from '../helpers/favicon';
 import setColor from '../helpers/setColor';
+import useFullscreen from '../hooks/useFullscreen';
 
 export default ({ data: { content: { html, frontmatter }, parent }, location }) => {
+	useFullscreen();
+
 	const { pathname: url } = location;
 	const back = url.slice(0, url.replace(/\/$/, '').lastIndexOf('/'));
 
