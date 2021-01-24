@@ -38,7 +38,7 @@ $primary: var(--primary, #e44);
 .wrap {
 	width: calc(100vw - #{size(60)});
 	height: calc(100vh - #{size(60)});
-	max-height: 100rvh;
+	height: calc(var(--vh, 1vh) * 100 - #{size(60)});
 	padding: size(50) size(30);
 	background-color: #f7f0d9;
 	border-radius: size(40);
