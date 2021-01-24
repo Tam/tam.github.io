@@ -84,6 +84,12 @@ $primary: var(--primary, #e44);
 	}
 }
 
+.index {
+	h1 {
+		font-size: size(55);
+	}
+}
+
 .large {
 	margin: size(30) 0 size(40);
 	line-height: 1em;
@@ -99,7 +105,7 @@ $primary: var(--primary, #e44);
 		line-height: 1em;
 	}
 
-	@media (max-width: 500px) {
+	@media (max-width: 640px) {
 		em {
 			font-size: size(70);
 		}
@@ -130,6 +136,15 @@ $primary: var(--primary, #e44);
 		text-decoration: none;
 
 		border-top: 3px solid change-color($muted-color, $alpha: 0.5);
+
+		@media (max-width: 600px) {
+			white-space: pre-wrap;
+
+			span {
+				padding-left: size(10);
+				line-height: 1.2em;
+			}
+		}
 
 		&:hover span {
 			text-decoration: underline;
@@ -164,6 +179,24 @@ $primary: var(--primary, #e44);
 		border-top: 3px solid change-color($muted-color, $alpha: 0.5);
 
 		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.parts {
+	text-align: left;
+
+	small {
+		display: block;
+		color: $muted-color;
+		font-weight: bold;
+	}
+
+	a:hover {
+		text-decoration: none;
+
+		span {
 			text-decoration: underline;
 		}
 	}

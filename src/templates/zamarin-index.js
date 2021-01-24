@@ -3,6 +3,7 @@ import css from '../scss/zamarin.module.scss';
 import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
 import favicon from '../helpers/favicon';
+import cls from '../helpers/cls';
 
 export default ({ data: { content: { frontmatter, html }, pages }, location, pageContext }) => {
 	const { pathname: url } = location;
@@ -19,7 +20,7 @@ export default ({ data: { content: { frontmatter, html }, pages }, location, pag
 			</Helmet>
 			<div className={css.wrap}>
 				<div className={css.inner}>
-					<header className={css.header}>
+					<header className={cls(css.header, css.index)}>
 						<h1>{frontmatter.title}</h1>
 						<a href={back}>&larr; Back</a>
 					</header>
@@ -27,14 +28,19 @@ export default ({ data: { content: { frontmatter, html }, pages }, location, pag
 						className={css.article}
 						dangerouslySetInnerHTML={{__html:html}}
 					/>
-					<ul className={css.details}>
-						{pages.nodes.map(page => (
-							<li key={page.fields.path}>
-								<a href={page.fields.path}>
-									<span>{page.frontmatter.title}</span>
-								</a>
-							</li>
-						))}
+					<ul className={cls(css.details, css.parts)}>
+						{pages.nodes.map(page => {
+							const [part, title] = page.frontmatter.title.split(': ');
+
+							return (
+								<li key={page.fields.path}>
+									<a href={page.fields.path}>
+										<small>{part}</small>
+										<span>{title}</span>
+									</a>
+								</li>
+							);
+						})}
 					</ul>
 				</div>
 			</div>

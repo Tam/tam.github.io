@@ -10,6 +10,8 @@ export default ({ data: { content: { html, frontmatter }, parent }, location }) 
 
 	const color = parent ? parent.frontmatter.color : frontmatter.color;
 
+	const [part, title] = frontmatter.title.split(': ');
+
 	return (
 		<>
 			<Helmet htmlAttributes={{
@@ -23,9 +25,9 @@ export default ({ data: { content: { html, frontmatter }, parent }, location }) 
 				<div className={css.inner}>
 					<header className={css.header}>
 						{parent && (
-							<h2>{parent.frontmatter.title}</h2>
+							<h2><a href={back}>{parent.frontmatter.title}</a> &nbsp;&raquo;&nbsp; {part}</h2>
 						)}
-						<h1>{frontmatter.title}</h1>
+						<h1>{title || part}</h1>
 						<a href={back}>&larr; Back</a>
 					</header>
 					<article
