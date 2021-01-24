@@ -3,10 +3,10 @@ import css from '../../scss/zamarin.module.scss';
 import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
 import favicon from '../../helpers/favicon';
-import useFullscreen from '../../hooks/useFullscreen';
+import useFitToScreen from '../../hooks/useFitToScreen';
 
 export default ({ data: { pages } }) => {
-	useFullscreen();
+	useFitToScreen();
 
 	return (
 		<>

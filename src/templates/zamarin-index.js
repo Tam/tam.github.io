@@ -5,10 +5,10 @@ import { graphql } from 'gatsby';
 import favicon from '../helpers/favicon';
 import cls from '../helpers/cls';
 import setColor from '../helpers/setColor';
-import useFullscreen from '../hooks/useFullscreen';
+import useFitToScreen from '../hooks/useFitToScreen';
 
 export default ({ data: { content: { frontmatter, html }, pages }, location }) => {
-	useFullscreen();
+	useFitToScreen();
 
 	const { pathname: url } = location;
 	const back = url.slice(0, url.replace(/\/$/, '').lastIndexOf('/'));

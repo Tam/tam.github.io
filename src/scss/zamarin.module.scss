@@ -38,17 +38,12 @@ $primary: var(--primary, #e44);
 .wrap {
 	width: calc(100vw - #{size(60)});
 	height: calc(100vh - #{size(60)});
+	max-height: 100rvh;
 	padding: size(50) size(30);
 	background-color: #f7f0d9;
 	border-radius: size(40);
 
 	overflow: auto;
-
-	@supports (min-height: -webkit-fill-available) {
-		& {
-			min-height: -webkit-fill-available;
-		}
-	}
 
 	h1 {
 		color: $primary;
