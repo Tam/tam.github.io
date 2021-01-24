@@ -3,6 +3,7 @@ import css from '../scss/zamarin.module.scss';
 import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
 import favicon from '../helpers/favicon';
+import setColor from '../helpers/setColor';
 
 export default ({ data: { content: { html, frontmatter }, parent }, location }) => {
 	const { pathname: url } = location;
@@ -14,12 +15,10 @@ export default ({ data: { content: { html, frontmatter }, parent }, location }) 
 
 	return (
 		<>
-			<Helmet htmlAttributes={{
-				class: css.body,
-				style: color ? `--primary:${color}` : null,
-			}}>
+			<Helmet htmlAttributes={{ class: css.body }}>
 				<title>{frontmatter.title} - {parent ? parent.frontmatter.title : ''} - The Fantastic Adventures of Zamarin</title>
 				{favicon(parent ? parent.frontmatter.icon : frontmatter.icon)}
+				{setColor(color)}
 			</Helmet>
 			<div className={css.wrap}>
 				<div className={css.inner}>

@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
 import favicon from '../helpers/favicon';
 import cls from '../helpers/cls';
+import setColor from '../helpers/setColor';
 
 export default ({ data: { content: { frontmatter, html }, pages }, location, pageContext }) => {
 	const { pathname: url } = location;
@@ -11,12 +12,10 @@ export default ({ data: { content: { frontmatter, html }, pages }, location, pag
 
 	return (
 		<>
-			<Helmet htmlAttributes={{
-				class: css.body,
-				style: frontmatter.color ? `--primary:${frontmatter.color}` : null,
-			}}>
+			<Helmet htmlAttributes={{ class: css.body }}>
 				<title>{frontmatter.title} - The Fantastic Adventures of Zamarin</title>
 				{favicon(frontmatter.icon)}
+				{setColor(frontmatter.color)}
 			</Helmet>
 			<div className={css.wrap}>
 				<div className={css.inner}>

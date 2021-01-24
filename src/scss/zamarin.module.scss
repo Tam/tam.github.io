@@ -44,6 +44,12 @@ $primary: var(--primary, #e44);
 
 	overflow: auto;
 
+	@supports (min-height: -webkit-fill-available) {
+		& {
+			min-height: -webkit-fill-available;
+		}
+	}
+
 	h1 {
 		color: $primary;
 		font-family: 'Lowdrag', sans-serif;
@@ -159,6 +165,7 @@ $primary: var(--primary, #e44);
 			color: $muted-color;
 			font-size: size(80);
 			font-weight: bold;
+			line-height: 1em;
 		}
 	}
 }
