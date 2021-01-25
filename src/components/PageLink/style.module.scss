@@ -1,0 +1,26 @@
+@import "../../scss/functions";
+
+// TODO: Move to global variables file
+$text-color: #4f4d45;
+$muted-color: #bbb3a3;
+
+.link {
+	color: $text-color;
+	font-size: size(21);
+	text-transform: uppercase;
+	text-decoration: none;
+
+	small {
+		display: block;
+		color: $muted-color;
+		font-weight: bold;
+	}
+
+	&:hover span {
+		text-decoration: underline;
+	}
+
+	&:last-child {
+		text-align: right;
+	}
+}

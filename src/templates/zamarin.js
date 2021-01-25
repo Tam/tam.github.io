@@ -5,8 +5,9 @@ import { graphql } from 'gatsby';
 import favicon from '../helpers/favicon';
 import setColor from '../helpers/setColor';
 import useFitToScreen from '../hooks/useFitToScreen';
+import PageLink from '../components/PageLink';
 
-export default ({ data: { content: { html, frontmatter }, parent }, location }) => {
+export default ({ data: { content: { html, frontmatter }, parent, prev, next }, location, pageContext }) => {
 	useFitToScreen();
 
 	const { pathname: url } = location;
@@ -14,7 +15,7 @@ export default ({ data: { content: { html, frontmatter }, parent }, location }) 
 
 	const color = parent ? parent.frontmatter.color : frontmatter.color;
 
-	const [part, title] = frontmatter.title.split(': ');
+	const [part, title] = frontmatter.title.split(': ', 2);
 
 	return (
 		<>
@@ -36,6 +37,20 @@ export default ({ data: { content: { html, frontmatter }, parent }, location }) 
 						className={css.article}
 						dangerouslySetInnerHTML={{__html:html}}
 					/>
+					<footer className={css.footer}>
+						{prev ? (
+							<PageLink
+								href={pageContext.prevPath}
+								title={prev.frontmatter.title}
+							/>
+						) : <span />}
+						{next ? (
+							<PageLink
+								href={pageContext.nextPath}
+								title={next.frontmatter.title}
+							/>
+						) : <span />}
+					</footer>
 				</div>
 			</div>
 		</>
@@ -46,6 +61,8 @@ export const pageQuery = graphql`
 	query (
 		$path: String!
 		$parentPath: String
+		$prevPath: String
+		$nextPath: String
 	) {
 		content: markdownRemark (fields: { path: { eq: $path } }) {
 			html
@@ -61,6 +78,16 @@ export const pageQuery = graphql`
 				title
 				color
 				icon
+			}
+		}
+		prev: markdownRemark (fields: { path: { eq: $prevPath } }) {
+			frontmatter {
+				title
+			}
+		}
+		next: markdownRemark (fields: { path: { eq: $nextPath } }) {
+			frontmatter {
+				title
 			}
 		}
 	}

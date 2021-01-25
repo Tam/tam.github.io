@@ -28,6 +28,13 @@ exports.createPages = async ({ actions, graphql }) => {
 
 	data.pages.nodes.forEach(({ frontmatter, fields }) => {
 		const pth = fields.path || frontmatter.path;
+		let nextPath = '',
+			prevPath = '';
+
+		if (/\d+$/.test(pth)) {
+			nextPath = pth.replace(/\d+$/, $1 => +$1 + 1);
+			prevPath = pth.replace(/\d+$/, $1 => +$1 - 1);
+		}
 
 		createPage({
 			path: pth,
@@ -35,6 +42,8 @@ exports.createPages = async ({ actions, graphql }) => {
 			context: {
 				pathGlob: '**/*' + pth.replace(/^\//g, '') + '**/*',
 				parentPath: pth.slice(0, pth.replace(/\/$/, '').lastIndexOf('/')),
+				nextPath,
+				prevPath,
 			},
 		});
 	});

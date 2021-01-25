@@ -211,3 +211,9 @@ $primary: var(--primary, #e44);
 		margin-bottom: size(15);
 	}
 }
+
+.footer {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
